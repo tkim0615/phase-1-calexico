@@ -5,6 +5,12 @@
     const dishDescriptionElement = document.getElementById('dish-description')
     const dishPriceElement = document.getElementById('dish-price')
 
+    const cartFormElement = document.getElementById('cart-form')
+    const numberInCartElement = document.getElementById('number-in-cart')
+    const numberToAddElement = document.getElementById('cart-amount')
+
+
+
 
 fetch('http://localhost:3000/menu')
 .then(resp => resp.json())
@@ -29,27 +35,72 @@ fetch('http://localhost:3000/menu')
     displayFoodDetail(menus[0])    
 
     //deliverable 4  form submission event
-    
-    const cartFormElement = document.getElementById('cart-form')
-    const numberInCartElement = document.getElementById('number-in-cart')
-    const cartAmountElement = document.getElementById('cart-amount')
-    cartFormElement.addEventListener('submit', (e) => {
+    cartFormElement.addEventListener('submit', (e) =>{
         e.preventDefault()
-        let numberinCartValue = parseInt(numberInCartElement.textContent)
-        let numbertoAddToCart = parseInt(cartAmountElement.value)
-        let newCartAmount = numberinCartValue + numbertoAddToCart
-         numberInCartElement.textContent = newCartAmount
-         
-        cartFormElement.reset()
+    
+    let cartAmount = parseInt(numberInCartElement.textContent)
+    let numberToAdd = parseInt(numberToAddElement.value)
+        if(isNaN(numberToAdd)){
+            alert ("Not a number!")
+        }else{
+            let sum = cartAmount + numberToAdd
+            numberInCartElement.textContent = sum
+        }
         
-    })
+    
+    cartFormElement.reset()
+})
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // const cartFormElement = document.getElementById('cart-form')
+    // const numberInCartElement = document.getElementById('number-in-cart')
+    // const cartAmountElement = document.getElementById('cart-amount')
+    // cartFormElement.addEventListener('submit', (e) => {
+    //     e.preventDefault()
+    //     let numberinCartValue = parseInt(numberInCartElement.textContent)
+    //     let numbertoAddToCart = parseInt(cartAmountElement.value)
+    //     let newCartAmount = numberinCartValue + numbertoAddToCart
+    //      numberInCartElement.textContent = newCartAmount
+         
+    //     cartFormElement.reset()
+        
+    // })
     
 
 
 })
 //refactoring deliverable 2 -- these are in global scope(moved out from for each scope)
 function displayFoodDetail(food){
-    console.log(food)
     dishImageElement.src = food.image
     dishNameElement.textContent = food.name
     dishDescriptionElement.textContent = food.description
