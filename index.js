@@ -4,6 +4,7 @@ const numberToAddInput = document.getElementById('cart-amount')
 const numberToAdd = Number(numberToAddInput.value)
 const total = Number(currentCart + numberToAdd)
 
+
 const dishImageElement = document.getElementById('dish-image')
     const dishNameElement = document.getElementById('dish-name')
     const dishDescriptionElement = document.getElementById('dish-description')
@@ -48,7 +49,7 @@ function displayMenuDetail(menu){
     dishImageElement.src = menu.image
     dishNameElement.textContent = menu.name
     dishDescriptionElement.textContent = menu.description
-    dishPriceElement.textContent = '$' + menu.price
+    dishPriceElement.textContent = `$${menu.price}`
     numberInCart.textContent = currentCart
 }
 
