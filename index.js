@@ -58,8 +58,13 @@ function cartSum(){
         const currentCart = Number(numberInCart.textContent)
         const numberToAddInput = document.getElementById('cart-amount')
         const numberToAdd = Number(numberToAddInput.value)
+        if(isNaN(numberToAdd)){
+            alert('not a number')
+        }else
+        {
         const total = Number(currentCart + numberToAdd)
         numberInCart.textContent = Number(total)
+        }
 
 }
 
