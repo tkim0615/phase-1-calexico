@@ -1,72 +1,204 @@
+function addMenuItems(menu){
+const menuItemsElement = document.getElementById('menu-items')
+const spanElement = document.createElement('span')
+spanElement.textContent = menu.name
+menuItemsElement.appendChild(spanElement)
+
+spanElement.addEventListener('click', e => {
+    displayMenuDetail(menu)
+})
+}
+
+const detailImage = document.getElementById('dish-image')
+const detailName = document.querySelector('#dish-name')
+const detailDescription = document.getElementById('dish-description')
+const detailPrice = document.getElementById('dish-price')
+
+
+const numberToAdd = document.getElementById('cart-amount')
+const valueToAdd = Number(numberToAdd.value)
 const numberInCart = document.getElementById('number-in-cart')
-const currentCart = Number(numberInCart.textContent)
-const numberToAddInput = document.getElementById('cart-amount')
-const numberToAdd = Number(numberToAddInput.value)
-const total = Number(currentCart + numberToAdd)
+const cart = Number(numberInCart.textContent)
+const sum = Number(valueToAdd) + Number(cart)
 
 
-const dishImageElement = document.getElementById('dish-image')
-    const dishNameElement = document.getElementById('dish-name')
-    const dishDescriptionElement = document.getElementById('dish-description')
-    const dishPriceElement = document.getElementById('dish-price')
-
-
+ 
 fetch('http://localhost:3000/menu')
-.then(response => response.json())
-.then(menuArray => {
-   
-    menuArray.forEach(menu => {
-        addMenuItem(menu) //deliverable 1
+.then(resp => resp.json())
+.then(menuItems => {
+
+    menuItems.forEach(menu => {
+        addMenuItems(menu)
     })
 
-    displayMenuDetail(menuArray[0])
+    displayMenuDetail(menuItems[0])
 
 
+    
     const formElement = document.getElementById('cart-form')
-    formElement.addEventListener('submit', (e) => {
+    formElement.addEventListener('submit', e => {
+
         e.preventDefault()
-        cartSum()
-        formElement.reset()
-
-    })
-
+    const valueToAdd = Number(numberToAdd.value)
+    const numberInCart = document.getElementById('number-in-cart')
+    const cart = Number(numberInCart.textContent)
+    const sum = Number(valueToAdd) + Number(cart)
+    numberInCart.textContent = sum
+    formElement.reset()
+})
 })
 
-
-//deliverabl1 refactored
-function addMenuItem(menu){
-    const span = document.createElement('span')
-    const menuItemElement = document.querySelector('#menu-items')
-    span.innerText = menu.name
-    menuItemElement.appendChild(span)
-
-    span.addEventListener('click', (e) => {
-        displayMenuDetail(menu)
-    })
-}
-
 function displayMenuDetail(menu){
-    dishImageElement.src = menu.image
-    dishNameElement.textContent = menu.name
-    dishDescriptionElement.textContent = menu.description
-    dishPriceElement.textContent = `$${menu.price}`
-    numberInCart.textContent = currentCart
-}
-
-function cartSum(){
-        const numberInCart = document.getElementById('number-in-cart')
-        const currentCart = Number(numberInCart.textContent)
-        const numberToAddInput = document.getElementById('cart-amount')
-        const numberToAdd = Number(numberToAddInput.value)
-        if(isNaN(numberToAdd)){
-            alert('not a number')
-        }else
-        {
-        const total = Number(currentCart + numberToAdd)
-        numberInCart.textContent = Number(total)
-        }
+detailImage.src = menu.image
+detailName.textContent = menu.name
+detailDescription.textContent = menu.description
+detailPrice.textContent = '$' + `${menu.price}`
+numberInCart.textContent = sum
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const numberInCart = document.getElementById('number-in-cart')
+// const currentCart = Number(numberInCart.textContent)
+// const numberToAddInput = document.getElementById('cart-amount')
+// const numberToAdd = Number(numberToAddInput.value)
+// const total = Number(currentCart + numberToAdd)
+
+
+// const dishImageElement = document.getElementById('dish-image')
+//     const dishNameElement = document.getElementById('dish-name')
+//     const dishDescriptionElement = document.getElementById('dish-description')
+//     const dishPriceElement = document.getElementById('dish-price')
+
+
+// fetch('http://localhost:3000/menu')
+// .then(response => response.json())
+// .then(menuArray => {
+   
+//     menuArray.forEach(menu => {
+//         addMenuItem(menu) //deliverable 1
+//     })
+
+//     displayMenuDetail(menuArray[0])
+
+
+//     const formElement = document.getElementById('cart-form')
+//     formElement.addEventListener('submit', (e) => {
+//         e.preventDefault()
+//         cartSum()
+//         formElement.reset()
+
+//     })
+
+// })
+
+
+// //deliverabl1 refactored
+// function addMenuItem(menu){
+//     const span = document.createElement('span')
+//     const menuItemElement = document.querySelector('#menu-items')
+//     span.innerText = menu.name
+//     menuItemElement.appendChild(span)
+
+//     span.addEventListener('click', (e) => {
+//         displayMenuDetail(menu)
+//     })
+// }
+
+// function displayMenuDetail(menu){
+//     dishImageElement.src = menu.image
+//     dishNameElement.textContent = menu.name
+//     dishDescriptionElement.textContent = menu.description
+//     dishPriceElement.textContent = `$${menu.price}`
+//     numberInCart.textContent = currentCart
+// }
+
+// function cartSum(){
+//         const numberInCart = document.getElementById('number-in-cart')
+//         const currentCart = Number(numberInCart.textContent)
+//         const numberToAddInput = document.getElementById('cart-amount')
+//         const numberToAdd = Number(numberToAddInput.value)
+//         if(isNaN(numberToAdd)){
+//             alert('not a number')
+//         }else
+//         {
+//         const total = Number(currentCart + numberToAdd)
+//         numberInCart.textContent = Number(total)
+//         }
+
+// }
 
 
 
