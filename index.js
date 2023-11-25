@@ -1,61 +1,145 @@
-function addMenuItems(menu){
-const menuItemsElement = document.getElementById('menu-items')
-const spanElement = document.createElement('span')
-spanElement.textContent = menu.name
-menuItemsElement.appendChild(spanElement)
 
-spanElement.addEventListener('click', e => {
-    displayMenuDetail(menu)
+let currentMenu
+fetch('http://localhost:3000/menu')
+.then(resp => resp.json())
+.then(menuList => {
+
+    menuList.map(menu => {
+        const spanElement = document.createElement('span')
+        const menuElement = document.getElementById('menu-items')
+
+        spanElement.textContent = menu.name
+        menuElement.appendChild(spanElement)
+
+        spanElement.addEventListener('click', e => {
+            displayDetail(menu)
+        })
+    })
+    displayDetail(menuList[0])
+
+
+    const formELement = document.getElementById('cart-form')
+    formELement.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const numberInCart = document.getElementById('number-in-cart')
+        const inputAmount = document.getElementById('cart-amount')
+        currentMenu.number_in_bag += Number(inputAmount.value)
+
+        numberInCart.textContent = currentMenu.number_in_bag
+        formELement.reset()
+
+
+    })
+
 })
+
+function displayDetail(menu){
+    currentMenu = menu
+    const detailImage = document.getElementById('dish-image')
+    const detailName = document.getElementById('dish-name')
+    const detailDescription = document.getElementById('dish-description')
+    const detailPrice = document.getElementById('dish-price')
+    const detailCart = document.getElementById('number-in-cart')
+
+    detailImage.src = menu.image
+    detailName.textContent = menu.name
+    detailDescription.textContent = menu.description
+    detailPrice.textContent = `$ ${menu.price}`
+    detailCart.textContent = currentMenu.number_in_bag
+    
 }
 
-const detailImage = document.getElementById('dish-image')
-const detailName = document.querySelector('#dish-name')
-const detailDescription = document.getElementById('dish-description')
-const detailPrice = document.getElementById('dish-price')
 
 
-const numberToAdd = document.getElementById('cart-amount')
-const valueToAdd = Number(numberToAdd.value)
-const numberInCart = document.getElementById('number-in-cart')
-const cart = Number(numberInCart.textContent)
-const sum = Number(valueToAdd) + Number(cart)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function addMenuItems(menu){
+// const menuItemsElement = document.getElementById('menu-items')
+// const spanElement = document.createElement('span')
+// spanElement.textContent = menu.name
+// menuItemsElement.appendChild(spanElement)
+
+// spanElement.addEventListener('click', e => {
+//     displayMenuDetail(menu)
+// })
+// }
+
+// const detailImage = document.getElementById('dish-image')
+// const detailName = document.querySelector('#dish-name')
+// const detailDescription = document.getElementById('dish-description')
+// const detailPrice = document.getElementById('dish-price')
+
+
+// const numberToAdd = document.getElementById('cart-amount')
+// const valueToAdd = Number(numberToAdd.value)
+// const numberInCart = document.getElementById('number-in-cart')
+// const cart = Number(numberInCart.textContent)
+// const sum = Number(valueToAdd) + Number(cart)
 
 
  
-fetch('http://localhost:3000/menu')
-.then(resp => resp.json())
-.then(menuItems => {
+// fetch('http://localhost:3000/menu')
+// .then(resp => resp.json())
+// .then(menuItems => {
 
-    menuItems.forEach(menu => {
-        addMenuItems(menu)
-    })
+//     menuItems.forEach(menu => {
+//         addMenuItems(menu)
+//     })
 
-    displayMenuDetail(menuItems[0])
+//     displayMenuDetail(menuItems[0])
 
 
     
-    const formElement = document.getElementById('cart-form')
-    formElement.addEventListener('submit', e => {
+//     const formElement = document.getElementById('cart-form')
+//     formElement.addEventListener('submit', e => {
 
-        e.preventDefault()
-    const valueToAdd = Number(numberToAdd.value)
-    const numberInCart = document.getElementById('number-in-cart')
-    const cart = Number(numberInCart.textContent)
-    const sum = Number(valueToAdd) + Number(cart)
-    numberInCart.textContent = sum
-    formElement.reset()
-})
-})
+//         e.preventDefault()
+//     const valueToAdd = Number(numberToAdd.value)
+//     const numberInCart = document.getElementById('number-in-cart')
+//     const cart = Number(numberInCart.textContent)
+//     const sum = Number(valueToAdd) + Number(cart)
+//     numberInCart.textContent = sum
+//     formElement.reset()
+// })
+// })
 
-function displayMenuDetail(menu){
-detailImage.src = menu.image
-detailName.textContent = menu.name
-detailDescription.textContent = menu.description
-detailPrice.textContent = '$' + `${menu.price}`
-numberInCart.textContent = sum
+// function displayMenuDetail(menu){
+// detailImage.src = menu.image
+// detailName.textContent = menu.name
+// detailDescription.textContent = menu.description
+// detailPrice.textContent = '$' + `${menu.price}`
+// numberInCart.textContent = sum
 
-}
+// }
 
 
 
